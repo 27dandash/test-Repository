@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fawry_app/core/theme/app_theme.dart';
-import 'core/components/constants.dart';
 import 'core/cubit/cubit.dart';
 import 'core/cubit/state.dart';
 import 'core/network/local/SharedPreferences.dart';
@@ -19,45 +17,21 @@ void main() async {
   await CacheHelper.init();
   SharedPreferences.getInstance();
   bool? isdark = CacheHelper.getData(key: 'Isdark');
-  // Widget widget;
-  // bool onBoarding = CacheHelper.getData(key: 'onBoarding') == null
-  //     ? false
-  //     : CacheHelper.getData(key: 'onBoarding');
-  // token = CacheHelper.getData(key: 'uId');
-  // isRtl = CacheHelper.getData(key: 'isRtl');
-  // String translation = await rootBundle
-  // //     .loadString('assets/translations/${isRtl ? 'ar' : 'en'}.json');
-
-  // if (onBoarding == false) {
-  //   if (token != null) {
-  //     widget = const HomeLayOut();
-  //     print(token);
-  //   } else
-  //     widget = splash();
-  // } else
-  //   widget = splash();
 
   runApp(MyApp(
-    // startWidget: widget,
-    // isRtl: isRtl,
-    // translation: translation,
+
     isdark: isdark,
   ));
 }
 
 class MyApp extends StatelessWidget {
   final bool? isdark;
-  //
-  // // final Widget startWidget;
-  // final bool isRtl;
-  // final String translation;
+
 
   MyApp(
       {
-      // required this.startWidget,
-      // required this.isRtl,
+
       required this.isdark,
-      // required this.translation
       });
 
   @override
@@ -66,7 +40,6 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AppCubit>(
             create: (BuildContext context) => AppCubit()
-              // ..setTranslation(translation: translation)
               ..checkConnectivity()
               ..getbusniss()
               ..onchangeappmode(
@@ -84,7 +57,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme().lightTheme,
             darkTheme: AppTheme().darkTheme,
             themeMode: cubit.AppTheme ? ThemeMode.light : ThemeMode.dark,
-            home: tapbar_view(),
+            home: const TapBarView(),
             // home: startWidget,
           );
         },

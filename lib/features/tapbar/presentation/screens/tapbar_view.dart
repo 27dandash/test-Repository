@@ -1,10 +1,11 @@
-import 'package:fawry_app/core/network/local/SharedPreferences.dart';
-import 'package:fawry_app/features/tapbar/presentation/screens/widgets/first_screen.dart';
-import 'package:fawry_app/features/tapbar/presentation/screens/widgets/second_screen.dart';
-import 'package:fawry_app/features/tapbar/presentation/screens/widgets/third_screen.dart';
+import 'package:fawry_app/features/tapbar/presentation/components/Documents_tap_view.dart';
+import 'package:fawry_app/features/tapbar/presentation/components/contracts_tap_view.dart';
+import 'package:fawry_app/features/tapbar/presentation/components/property_tap_view.dart';
 import 'package:flutter/material.dart';
 
-class tapbar_view extends StatelessWidget {
+class TapBarView extends StatelessWidget {
+  const TapBarView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -20,22 +21,18 @@ class tapbar_view extends StatelessWidget {
               child: const SizedBox(
                 height: 50,
                 child: TabBar(
+                  unselectedLabelColor: Colors.grey,
+                  labelColor: Colors.black,
                   indicator: BoxDecoration(
-
                     border: Border(
-                      left: BorderSide(color: Colors.grey), // provides to left side
+                      left: BorderSide(color: Colors.grey),
                       right: BorderSide(color: Colors.grey), // for right side
-                    ),),
-                  indicatorSize:TabBarIndicatorSize.tab ,
-                  // selectedItemColor: Colors.blue, // Color of selected tab text
-                  // unselectedItemColor: Colors.grey, // Color of unselected tab text
-                  // selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold), // Style of selected tab text
-                  // unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal), // Style of unselected tab text
-
+                    ),
+                  ),
+                  indicatorSize: TabBarIndicatorSize.tab,
                   indicatorColor: Colors.blue,
                   dividerColor: Colors.grey,
                   dividerHeight: 0.9,
-
                   tabs: [
                     Tab(
                       text: 'العقارات',
@@ -51,8 +48,12 @@ class tapbar_view extends StatelessWidget {
               ),
             ),
           ),
-          body: TabBarView(
-            children: [const first(), third(), const second()],
+          body: const TabBarView(
+            children: [
+              PropertyTapView(),
+              DocumentsTapView(),
+              ContractsTapView()
+            ],
           ),
         ),
       ),

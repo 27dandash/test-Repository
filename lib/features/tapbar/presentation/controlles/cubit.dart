@@ -1,7 +1,4 @@
-
 import 'package:fawry_app/core/cubit/state.dart';
-import 'package:fawry_app/features/tapbar/Data/model/model.dart';
-import 'package:fawry_app/features/tapbar/domain/entities/model.dart';
 import 'package:fawry_app/features/tapbar/domain/entities/model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,72 +15,71 @@ class TapbarCubit extends Cubit<AppStates> {
     Text('Page 2'),
     Text('Page 3'),
   ];
-
-   void _onItemTapped(int index) {
-  //   setState(() {
-  //     _selectedIndex = index;
-  //   });
-   }
-
-  final List<aqar> aqarData = [
-    aqar(
+  final List<PropertyModel> PropertyData = [
+    PropertyModel(
       aqarname: 'النور',
-      date: '25/5/2023',
+      date: '20/5/2023',
       aqarnumber: '#12345',
-      contry: 'المملكه الربيه السعوديه',
-      city: 'الرياض',
-    ),aqar(
-      aqarname: 'النور',
-      date: '25/5/2023',
-      aqarnumber: '#12345',
-      contry: 'المملكه الربيه السعوديه',
+      contry: 'المملكة العربية السعودية',
       city: 'الرياض',
     ),
-    aqar(
+    PropertyModel(
       aqarname: 'النور',
-      date: '25/5/2023',
+      date: '20/5/2023',
       aqarnumber: '#12345',
-      contry: 'المملكه الربيه السعوديه',
+      contry: 'المملكة العربية السعودية',
       city: 'الرياض',
     ),
-    aqar(
+    PropertyModel(
       aqarname: 'النور',
-      date: '25/5/2023',
+      date: '20/5/2023',
       aqarnumber: '#12345',
-      contry: 'المملكه الربيه السعوديه',
+      contry: 'المملكة العربية السعودية',
+      city: 'الرياض',
+    ),
+    PropertyModel(
+      aqarname: 'النور',
+      date: '20/5/2023',
+      aqarnumber: '#12345',
+      contry: 'المملكة العربية السعودية',
+      city: 'الرياض',
+    ),
+    PropertyModel(
+      aqarname: 'النور',
+      date: '20/5/2023',
+      aqarnumber: '#12345',
+      contry: 'المملكة العربية السعودية',
       city: 'الرياض',
     ),
   ];
-  final List<aqaod> aqodData = [
-    aqaod(
-    aqarname: 'النور',
-    date: '25/5/2023',
-    unit: '#12345',
-    renter: 'المملكه الربيه السعوديه',
-    time: 'الرياض',
-    ),  aqaod(
-    aqarname: 'النور',
-    date: '25/5/2023',
-    unit: '#12345',
-    renter: 'المملكه الربيه السعوديه',
-    time: 'الرياض',
-    ),
-    aqaod(
+  final List<ContractsModel> ContractsData = [
+    ContractsModel(
       aqarname: 'النور',
-      date: '25/5/2023',
+      date: '20/5/2023',
       unit: '#12345',
-      renter: 'المملكه الربيه السعوديه',
+      renter: 'المملكة العربية السعودية',
       time: 'الرياض',
-    ), aqaod(
+    ),
+    ContractsModel(
       aqarname: 'النور',
-      date: '25/5/2023',
+      date: '20/5/2023',
       unit: '#12345',
-      renter: 'المملكه الربيه السعوديه',
+      renter: 'المملكة العربية السعودية',
+      time: 'الرياض',
+    ),
+    ContractsModel(
+      aqarname: 'النور',
+      date: '20/5/2023',
+      unit: '#12345',
+      renter: 'المملكة العربية السعودية',
+      time: 'الرياض',
+    ),
+    ContractsModel(
+      aqarname: 'النور',
+      date: '20/5/2023',
+      unit: '#12345',
+      renter: 'المملكة العربية السعودية',
       time: 'الرياض',
     ),
   ];
-
-  // onUpdateAppCubit(bool authorized){
-  //   emit(AuthUpdated(authorized));
-  // }
 }

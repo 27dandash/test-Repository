@@ -1,11 +1,11 @@
-class aqar {
+class PropertyModel {
   final String aqarname;
   final String date;
   final String aqarnumber;
   final String contry;
   final String city;
 
-  aqar(
+  PropertyModel(
       {required this.aqarname,
       required this.date,
       required this.aqarnumber,
@@ -13,14 +13,14 @@ class aqar {
       required this.city});
 }
 
-class aqaod {
+class ContractsModel {
   final String aqarname;
   final String date;
   final String unit;
   final String renter;
   final String time;
 
-  aqaod(
+  ContractsModel(
       {required this.aqarname,
       required this.date,
       required this.unit,
