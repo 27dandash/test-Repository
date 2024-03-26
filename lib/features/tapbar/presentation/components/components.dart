@@ -1,9 +1,10 @@
 import 'package:fawry_app/features/tapbar/Data/model/model.dart';
+import 'package:fawry_app/features/tapbar/domain/entities/model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
-  final aqar_model item;
+  final aqar item;
 
   CustomCard({required this.item});
 
@@ -124,7 +125,7 @@ class CustomCard extends StatelessWidget {
 }
 
 class CustomCards extends StatelessWidget {
-  final aqaod_model item;
+  final aqaod item;
 
   CustomCards({required this.item});
 

@@ -13,12 +13,19 @@ class tapbar_view extends StatelessWidget {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.white,
             title: const Center(child: Text('املاكي')),
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(AppBar().preferredSize.height),
               child: const SizedBox(
                 height: 50,
                 child: TabBar(
+                  indicator: BoxDecoration(
+
+                    border: Border(
+                      left: BorderSide(color: Colors.grey), // provides to left side
+                      right: BorderSide(color: Colors.grey), // for right side
+                    ),),
                   indicatorSize:TabBarIndicatorSize.tab ,
                   // selectedItemColor: Colors.blue, // Color of selected tab text
                   // unselectedItemColor: Colors.grey, // Color of unselected tab text

@@ -1,6 +1,8 @@
 
 import 'package:fawry_app/core/cubit/state.dart';
 import 'package:fawry_app/features/tapbar/Data/model/model.dart';
+import 'package:fawry_app/features/tapbar/domain/entities/model.dart';
+import 'package:fawry_app/features/tapbar/domain/entities/model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,28 +25,28 @@ class TapbarCubit extends Cubit<AppStates> {
   //   });
    }
 
-  final List<aqar_model> aqar = [
-    aqar_model(
+  final List<aqar> aqarData = [
+    aqar(
       aqarname: 'النور',
       date: '25/5/2023',
       aqarnumber: '#12345',
       contry: 'المملكه الربيه السعوديه',
       city: 'الرياض',
-    ),aqar_model(
-      aqarname: 'النور',
-      date: '25/5/2023',
-      aqarnumber: '#12345',
-      contry: 'المملكه الربيه السعوديه',
-      city: 'الرياض',
-    ),
-    aqar_model(
+    ),aqar(
       aqarname: 'النور',
       date: '25/5/2023',
       aqarnumber: '#12345',
       contry: 'المملكه الربيه السعوديه',
       city: 'الرياض',
     ),
-    aqar_model(
+    aqar(
+      aqarname: 'النور',
+      date: '25/5/2023',
+      aqarnumber: '#12345',
+      contry: 'المملكه الربيه السعوديه',
+      city: 'الرياض',
+    ),
+    aqar(
       aqarname: 'النور',
       date: '25/5/2023',
       aqarnumber: '#12345',
@@ -52,27 +54,27 @@ class TapbarCubit extends Cubit<AppStates> {
       city: 'الرياض',
     ),
   ];
-  final List<aqaod_model> aqod = [
-    aqaod_model(
+  final List<aqaod> aqodData = [
+    aqaod(
     aqarname: 'النور',
     date: '25/5/2023',
     unit: '#12345',
     renter: 'المملكه الربيه السعوديه',
     time: 'الرياض',
-    ),  aqaod_model(
+    ),  aqaod(
     aqarname: 'النور',
     date: '25/5/2023',
     unit: '#12345',
     renter: 'المملكه الربيه السعوديه',
     time: 'الرياض',
     ),
-    aqaod_model(
+    aqaod(
       aqarname: 'النور',
       date: '25/5/2023',
       unit: '#12345',
       renter: 'المملكه الربيه السعوديه',
       time: 'الرياض',
-    ), aqaod_model(
+    ), aqaod(
       aqarname: 'النور',
       date: '25/5/2023',
       unit: '#12345',

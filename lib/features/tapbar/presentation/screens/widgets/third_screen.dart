@@ -38,9 +38,9 @@ class card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: TapbarCubit.get(context).aqod.length,
+      itemCount: TapbarCubit.get(context).aqodData.length,
       itemBuilder: (BuildContext context, int index) {
-        return CustomCards(item: TapbarCubit.get(context).aqod[index]);
+        return CustomCards(item: TapbarCubit.get(context).aqodData[index]);
       },
     );
   }
