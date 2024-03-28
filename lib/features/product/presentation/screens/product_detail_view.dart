@@ -74,10 +74,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                           height: 260,
                           child: PageView.builder(
                             controller: cubit.pageController,
-                            itemCount: cubit.imageUrls.length,
+                            itemCount: cubit.image.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Image.network(
-                                cubit.imageUrls[index],
+                                cubit.image[index],
                                 fit: BoxFit.cover,
                               );
                             },
@@ -124,7 +124,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     height: 8,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: cubit.imageUrls.length,
+                      itemCount: cubit.image.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -299,26 +299,50 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                         Row(
                           children: [
                             Container(
-                              height: 140,
+                              height: 160,
                               width: 111,
                               child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
                                 itemCount: cubit.ColorsList.length,
                                 itemBuilder: (context, index) {
-                                  return ListTile(
-                                    title: Text(
-                                      cubit.ColorsList[index],
-                                      style: const TextStyle(fontSize: 12),
-                                    ),
-                                    leading: Icon(Icons.check_circle_outline,
+                                  return
+                                    ListTile(
+                                      visualDensity: VisualDensity(
+                                          horizontal: -4, vertical: 0),
+                                      // Center(
+                                      //   child: IconButton(
+                                      //     icon: Icon(
+                                      //       _isPressed ? Icons.favorite : Icons.favorite_border,
+                                      //       color: _isPressed ? Colors.red : null,
+                                      //     ),
+                                      //     onPressed: _toggleIcon,
+                                      //   ),
+                                      // ),
+                                      title: Text(
+                                        cubit.ColorsList[index],
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+
+                                      leading: Icon(
+                                        index == cubit.colorItemIndex
+                                            ? Icons.check_circle
+                                            : Icons.circle_outlined,
                                         color: index == cubit.colorItemIndex
                                             ? Colors.blue
-                                            : Colors.grey),
-                                    onTap: () {
-                                      setState(() {
-                                        cubit.colorItemIndex = index;
-                                      });
-                                    },
-                                  );
+                                            : Colors.grey,
+                                      ),
+
+                                      // Icon(Icons.check_circle_outline,
+                                      //     color: index == cubit.colorItemIndex
+                                      //         ? Colors.blue
+                                      //         : Colors.white),
+                                      onTap: () {
+                                        setState(() {
+                                          cubit.colorItemIndex = index;
+                                        });
+                                      },
+                                    );
                                 },
                               ),
                             ),

@@ -27,7 +27,7 @@ class ProductCubit extends Cubit<ProductStates> {
 
 //image indecator
   final PageController pageController = PageController();
-  final List<String> imageUrls = [
+  final List<String> image = [
     'https://cdn.photographylife.com/wp-content/uploads/2014/09/Nikon-D750-Image-Samples-2.jpg',
     'https://wallpapercave.com/wp/wp2858553.jpg',
     'https://wallpaperset.com/w/full/0/d/5/183330.jpg',
@@ -41,21 +41,19 @@ class ProductCubit extends Cubit<ProductStates> {
 
   //
   void increaseNumber() {
-
-      number++;
-      if (number >= 10) {
-        // Show Snackbar notification
-
-      }
-      emit(AppIncreaseNumberState());
+    number++;
+    if (number >= 10) {
+      // Show Snackbar notification
+    }
+    emit(AppIncreaseNumberState());
   }
+
   //
   void decreaseNumber() {
-
-      if (number > 0) {
-        number--;
-      }
-      emit(AppDecreaseNumberState());
+    if (number > 0) {
+      number--;
+    }
+    emit(AppDecreaseNumberState());
   }
 
 //Select icon
@@ -63,14 +61,28 @@ class ProductCubit extends Cubit<ProductStates> {
   int sizeItemIndex = 0;
   final List<String> ColorsList = ["احمر", "ابيض", "اصفر"];
   final List<String> SizesList = ["كبير", "متوسط", "صغير"];
-
+  // void initState() {
+  //   // super.initState();
+  //   ProductCubit.get(context).pageController.addListener(() {
+  //
+  //     ProductCubit.get(context).currentPage =
+  //         ProductCubit.get(context).pageController.page!.round();
+  //   });
+  //   emit(AppSelectColorState());
+  // }
   final List<ProductModel> ProductData = [
     ProductModel(
-        image: 'https://wallpapercave.com/wp/wp2858553.jpg',
+        image: [
+          'https://cdn.photographylife.com/wp-content/uploads/2014/09/Nikon-D750-Image-Samples-2.jpg',
+          'https://wallpapercave.com/wp/wp2858553.jpg',
+          'https://wallpaperset.com/w/full/0/d/5/183330.jpg',
+        ],
         name: 'سرير تركي',
         price: '8000',
+        rating: 5,
         discount: '50',
         date: '25/5/2000',
-        bio: 'هذا النص هو مثال لنص يمكن ان يستبدل بنص اخر نفس المساحة لقد تم توليد النص من مولد النص هذا النص هو مثال لنص يمكن ان يستبدل بنص اخر نفس المساحة لقد تم توليد النص من مولد النص'),
+        bio:
+            'هذا النص هو مثال لنص يمكن ان يستبدل بنص اخر نفس المساحة لقد تم توليد النص من مولد النص هذا النص هو مثال لنص يمكن ان يستبدل بنص اخر نفس المساحة لقد تم توليد النص من مولد النص'),
   ];
 }

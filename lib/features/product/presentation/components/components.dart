@@ -1,9 +1,11 @@
 import 'package:fawry_app/features/product/domain/entities/model.dart';
+import 'package:fawry_app/features/product/presentation/components/star_rating.dart';
 import 'package:fawry_app/features/product/presentation/controlles/cubit.dart';
 import 'package:fawry_app/features/product/presentation/controlles/states.dart';
 import 'package:fawry_app/features/tapbar/presentation/screens/tapbar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductCard extends StatefulWidget {
@@ -16,6 +18,15 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
+  void initState() {
+    ProductCubit.get(context).pageController.addListener(() {
+      setState(() {
+        ProductCubit.get(context).currentPage =
+            ProductCubit.get(context).pageController.page!.round();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -24,7 +35,6 @@ class _ProductCardState extends State<ProductCard> {
         textDirection: TextDirection.rtl,
         child: BlocConsumer<ProductCubit, ProductStates>(
           listener: (context, state) {
-            // TODO: implement listener
           },
           builder: (context, state) {
             var cubit = ProductCubit.get(context);
@@ -33,7 +43,7 @@ class _ProductCardState extends State<ProductCard> {
               appBar: AppBar(
                 backgroundColor: Colors.white,
                 leading: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios,
                     size: 18,
                     color: Colors.black,
@@ -41,24 +51,24 @@ class _ProductCardState extends State<ProductCard> {
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return TapBarView();
+                        return const TapBarView();
                       },
                     ));
                   },
                 ),
-                title: Center(
+                title: const Center(
                     child: Text(
-                      'تفاصيل المنتج',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w900, fontSize: 24),
-                    )),
+                  'تفاصيل المنتج',
+                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: 24),
+                )),
               ),
               body: Padding(
-                padding: EdgeInsets.all(14.0),
+                padding: const EdgeInsets.all(14.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Stack(
@@ -69,17 +79,17 @@ class _ProductCardState extends State<ProductCard> {
                             height: 260,
                             child: PageView.builder(
                               controller: cubit.pageController,
-                              itemCount: cubit.imageUrls.length,
+                              itemCount: cubit.image.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return Image.network(
-                                  cubit.imageUrls[index],
+                                  cubit.image[index],
                                   fit: BoxFit.cover,
                                 );
                               },
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 90,
                         ),
                         Positioned(
@@ -89,51 +99,72 @@ class _ProductCardState extends State<ProductCard> {
                                 IconButton(
                                   icon: Icon(Icons.favorite,
                                       color: cubit.getIconColor()),
-                                  // Use getIconColor for dynamic color
                                   onPressed: () {
                                     cubit.toggleFavorite();
                                   },
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 230,
                                 ),
                                 Container(
                                     height: 40,
                                     width: 110,
                                     decoration: BoxDecoration(
-                                        color: Colors.blue[700],
-                                        borderRadius: BorderRadius.horizontal(
-                                          // left: Radius.circular(15),
+                                        color: Colors.blue[900],
+                                        borderRadius: const BorderRadius.horizontal(
                                           right: Radius.circular(15),
                                         )),
-                                    child: Center(child: Text('50% off'))),
+                                    child: Center(
+                                        child: Row(
+                                      mainAxisAlignment:MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'off% ',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          widget.item.discount,
+                                          style: const TextStyle(color: Colors.white),
+                                        ),
+                                      ],
+                                    ))),
                               ],
                             )),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    SizedBox(
-                      height: 8,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: cubit.imageUrls.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 4.0),
-                            child: Container(
-                              width: 40,
-                              decoration: BoxDecoration(
-                                color: cubit.currentPage == index
-                                    ? Colors.blue
-                                    : Colors.grey,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 8,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: cubit.image.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4.0),
+                                child: Container(
+                                  width: 36,
+                                  decoration: BoxDecoration(
+                                    color: cubit.currentPage == index
+                                        ? Colors.blue[700]
+                                        : Colors.grey,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     Row(
                       children: [
@@ -142,12 +173,12 @@ class _ProductCardState extends State<ProductCard> {
                           children: [
                             Text(
                               widget.item.name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             Row(
                               children: [
-                                Text(
+                                const Text(
                                   'سعر المنتج : ',
                                   style: TextStyle(
                                       color: Colors.grey,
@@ -156,10 +187,10 @@ class _ProductCardState extends State<ProductCard> {
                                 ),
                                 Text(
                                   widget.item.price,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 14, color: Colors.blue),
                                 ),
-                                Text(
+                                const Text(
                                   ' ر.س',
                                   style: TextStyle(
                                       fontSize: 14, color: Colors.blue),
@@ -168,7 +199,7 @@ class _ProductCardState extends State<ProductCard> {
                             ),
                             Row(
                               children: [
-                                Text(
+                                const Text(
                                   'تاريخ الاضافه :',
                                   style: TextStyle(
                                       color: Colors.grey,
@@ -177,100 +208,91 @@ class _ProductCardState extends State<ProductCard> {
                                 ),
                                 Text(
                                   widget.item.date,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 14, color: Colors.blue),
                                 ),
                               ],
                             ),
                           ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Container(
                           child: Column(
                             children: [
                               Container(
                                 height: 45,
+                                width: 120,
                                 color: Colors.grey[200],
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(
-                                      width: 8,
+                                    const SizedBox(
+                                      width: 4,
                                     ),
                                     CircleAvatar(
-                                      radius: 20,
+                                      radius: 15,
                                       backgroundColor: Colors.white,
-                                      child: IconButton(
-                                        icon: const Icon(
-                                          Icons.remove,
-                                          color: Colors.grey,
-                                          size: 20,
+                                      child: Center(
+                                        child: IconButton(
+                                          icon: const Icon(
+                                            Icons.remove,
+                                            color: Colors.grey,
+                                            size: 18,
+                                            weight: 200,
+                                          ),
+                                          onPressed: () {
+                                            cubit.decreaseNumber();
+                                          },
                                         ),
-                                        onPressed: () {
-                                          cubit.decreaseNumber();
-                                        },
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 8,
+                                    const SizedBox(
+                                      width: 14,
                                     ),
                                     Text(
                                       cubit.number.toString(),
-                                      style: const TextStyle(fontSize: 24),
+                                      style: const TextStyle(
+                                          fontSize: 18, color: Colors.grey),
                                     ),
-                                    SizedBox(
-                                      width: 8,
+                                    const SizedBox(
+                                      width: 14,
                                     ),
                                     CircleAvatar(
-                                      radius: 20,
+                                      radius: 15,
                                       backgroundColor: Colors.white,
                                       child: IconButton(
-                                        icon: const Icon(Icons.add),
+                                        icon: const Icon(
+                                          Icons.add,
+                                          color: Colors.grey,
+                                          size: 18,
+                                          weight: 200,
+                                        ),
                                         onPressed: () {
                                           cubit.increaseNumber();
                                           if (cubit.number >= 10) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
-                                              const SnackBar(
+                                              SnackBar(
                                                   content: Text(
-                                                      'Number is 10 or more!')),
+                                                      'Number is 10 or more! Your number is ${cubit.number}')),
                                             );
                                           }
                                         },
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 8,
+                                    const SizedBox(
+                                      width: 4,
                                     ),
                                   ],
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  //rating stars
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.grey,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
-                                  ),
+                                  StarRatingWidget(rating:widget.item.rating),
                                 ],
                               )
                             ],
@@ -278,157 +300,205 @@ class _ProductCardState extends State<ProductCard> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Container(
-                      child: Text(widget.item.bio,style: TextStyle(fontSize: 13,color: Colors.grey),),
+                      child: Text(
+                        widget.item.bio,
+                        style: const TextStyle(fontSize: 13, color: Colors.grey),
+                      ),
                     ),
-                    Text(
-                      'السمات',
-                      style: TextStyle(fontSize: 17),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    const Row(
+                      children: [
+                        Text(
+                          'السمات',
+                          style: TextStyle(fontSize: 17),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 7,
                     ),
                     Expanded(
                       child: Column(
                         children: [
-                          Row(
+                          const Row(
                             children: [
-                              Text('اللون'),
                               SizedBox(
-                                width: 190,
+                                width: 4,
                               ),
-                              Text('الحجم'),
+                              Text(
+                                'اللون',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              SizedBox(
+                                width: 155,
+                              ),
+                              Text('الحجم', style: TextStyle(fontSize: 16)),
                             ],
                           ),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                children: [
-                                  Text('اللون'),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    height: 140,
-                                    width: 111,
-                                    child: ListView.builder(
-                                      itemCount: cubit.ColorsList.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          title: Text(
-                                            cubit.ColorsList[index],
-                                            style: TextStyle(fontSize: 12),
-                                          ),
-                                          leading: Icon(
-                                              Icons.check_circle_outline,
-                                              color:
-                                              index == cubit.colorItemIndex
-                                                  ? Colors.blue
-                                                  : Colors.grey),
-                                          onTap: () {
-                                            cubit.colorItemIndex = index;
-                                          },
-                                        );
+                              Container(
+                                height: 160,
+                                width: 111,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: cubit.ColorsList.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      visualDensity: const VisualDensity(
+                                          horizontal: -4, vertical: 0),
+                                      title: Text(
+                                        cubit.ColorsList[index],
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+
+                                      leading: Icon(
+                                        index == cubit.colorItemIndex
+                                            ? Icons.check_circle
+                                            : Icons.circle_outlined,
+                                        color: index == cubit.colorItemIndex
+                                            ? Colors.blue
+                                            : Colors.grey,
+                                      ),
+
+                                      onTap: () {
+                                        setState(() {
+                                          cubit.colorItemIndex = index;
+                                        });
                                       },
-                                    ),
-                                  ),
-                                ],
+                                    );
+                                  },
+                                ),
                               ),
-                              SizedBox(
-                                width: 80,
+                              const SizedBox(
+                                width: 70,
                               ),
-                              Column(
-                                children: [
-                                  Text('الحجم'),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    height: 140,
-                                    width: 121,
-                                    child: ListView.builder(
-                                      itemCount: cubit.SizesList.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
+                              Container(
+                                height: 160,
+                                width: 120,
+
+                                child: ListView.builder(
+
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: cubit.SizesList.length,
+                                  itemBuilder: (context, index) {
+                                    return  Container(
+                                      decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(Radius.circular(50)),
+
+
+                                      ),
+                                      child: ListTile(
+                                          visualDensity: const VisualDensity(
+                                              horizontal: -4, vertical: 0),
                                           title: Text(
                                             cubit.SizesList[index],
-                                            style: TextStyle(fontSize: 12),
+                                            style: const TextStyle(fontSize: 12),
                                           ),
                                           leading: Icon(
-                                              Icons.check_circle_outline,
-                                              color:
-                                              index == cubit.sizeItemIndex
-                                                  ? Colors.blue
-                                                  : Colors.grey),
+                                            index == cubit.sizeItemIndex
+                                                ? Icons.check_circle
+                                                : Icons.circle_outlined,
+                                            color: index == cubit.sizeItemIndex
+                                                ? Colors.blue
+                                                : Colors.grey,
+                                          ),
                                           onTap: () {
-                                            cubit.sizeItemIndex = index;
+                                            setState(() {
+                                              cubit.sizeItemIndex = index;
+                                            });
                                           },
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
+                                        ),
+                                    );
+
+                                  },
+                                ),
                               ),
                             ],
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blue[900],
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            height: 50,
+                            width: 400,
+                            child: TextButton(
+                              onPressed: () {
+                                if (cubit.colorItemIndex != -1 &&
+                                    cubit.sizeItemIndex != -1) {
+                                  String selectedColor =
+                                      cubit.ColorsList[cubit.colorItemIndex];
+                                  String selectedSize =
+                                      cubit.SizesList[cubit.sizeItemIndex];
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text("Your Result"),
+                                        content: SizedBox(
+                                          height: 120,
+                                          child: Column(
+                                            mainAxisAlignment:MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                  "You selected: $selectedColor"),
+                                              Text(
+                                                  "You selected: $selectedSize"),
+                                              Text(
+                                                  "You selected: ${cubit.number}"),
+                                              Row(
+                                                children: [
+                                                  const Text('is Favorite : '),
+                                                  Text(cubit.isFavorite
+                                                      ? 'true'
+                                                      : 'false'),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Please select an item!"),
+                                    ),
+                                  );
+                                }
+                              },
+                              child: const Text(
+                                'اضافه الى السله',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.blue[900],
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      height: 50,
-                      width: 400,
-                      child: TextButton(
-                        onPressed: () {
-                          if (cubit.colorItemIndex != -1 &&
-                              cubit.sizeItemIndex != -1) {
-                            String selectedColor =
-                            cubit.ColorsList[cubit.colorItemIndex];
-                            String selectedSize =
-                            cubit.SizesList[cubit.sizeItemIndex];
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Your Result"),
-                                  content: SizedBox(
-                                    height: 80,
-                                    child: Column(
-                                      children: [
-                                        Text("You selected: $selectedColor"),
-                                        Text("You selected: $selectedSize"),
-                                        Text("You selected: ${cubit.number}"),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text('OK'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Please select an item!"),
-                              ),
-                            );
-                          }
-                        },
-                        child: const Text(
-                          'اضافه الى السله',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),

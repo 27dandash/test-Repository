@@ -52,6 +52,7 @@ dependencies:
   smooth_page_indicator:
   connectivity: ^3.0.6
   lottie: ^1.2.1
+  custom_rating_bar: ^2.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

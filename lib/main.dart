@@ -14,6 +14,7 @@ import 'features/product/presentation/screens/body_product_detail.dart';
 import 'features/product/presentation/screens/product_detail_view.dart';
 import 'features/tapbar/presentation/controlles/cubit.dart';
 import 'features/tapbar/presentation/screens/tapbar_view.dart';
+import 'features/try.dart';
 
 
 void main() async {
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
             darkTheme: AppTheme().darkTheme,
             themeMode: cubit.AppTheme ? ThemeMode.light : ThemeMode.dark,
             home:  BodyProductDetails(),
+            // home:  ExamplePage(),
             // home: startWidget,
           );
         },

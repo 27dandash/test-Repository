@@ -1,8 +1,9 @@
 
 class ProductModel {
-  final String image;
+  final List image;
   final String name;
   final String price;
+  final double rating;
   final String discount;
   final String date;
   final String bio;
@@ -10,6 +11,7 @@ class ProductModel {
   ProductModel(
       {required this.image,
         required this.name,
+        required this.rating,
         required this.price,
         required this.discount,
         required this.date,
