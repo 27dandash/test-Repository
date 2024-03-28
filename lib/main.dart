@@ -7,8 +7,14 @@ import 'core/cubit/state.dart';
 import 'core/network/local/SharedPreferences.dart';
 import 'core/network/remote/bloc_observer.dart';
 import 'core/network/remote/dio_helper.dart';
+import 'features/onboarding/presentation/controlles/cubit.dart';
+import 'features/product/presentation/components/property_tap_view.dart';
+import 'features/product/presentation/controlles/cubit.dart';
+import 'features/product/presentation/screens/body_product_detail.dart';
+import 'features/product/presentation/screens/product_detail_view.dart';
 import 'features/tapbar/presentation/controlles/cubit.dart';
 import 'features/tapbar/presentation/screens/tapbar_view.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,8 +51,13 @@ class MyApp extends StatelessWidget {
               ..onchangeappmode(
                 formShared: isdark,
               )),
+        BlocProvider<ProductCubit>(
+            create: (BuildContext context) => ProductCubit()),
         BlocProvider<TapbarCubit>(
             create: (BuildContext context) => TapbarCubit()),
+        BlocProvider<OnBoardingCubit>(
+            create: (BuildContext context) => OnBoardingCubit()),
+
       ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
@@ -57,7 +68,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme().lightTheme,
             darkTheme: AppTheme().darkTheme,
             themeMode: cubit.AppTheme ? ThemeMode.light : ThemeMode.dark,
-            home: const TapBarView(),
+            home:  BodyProductDetails(),
             // home: startWidget,
           );
         },

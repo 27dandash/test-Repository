@@ -1,6 +1,7 @@
+import 'package:fawry_app/features/product/presentation/screens/body_product_detail.dart';
+import 'package:fawry_app/features/tapbar/presentation/screens/body_tapbar.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/body_tap_view.dart';
 
 // Home Screen
 class ContractsTapView extends StatelessWidget {
